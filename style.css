@@ -1,0 +1,227 @@
+/*******************************************************************
+ * SASS Stuff
+ ******************************************************************/
+/*******************************************************************
+ * DEFAULT STYLES
+ *
+ * Just fer lookin...
+ ******************************************************************/
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background: #f2f2f2;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  color: #333;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 14px;
+}
+
+.wrapper {
+  width: 66.66%;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-top: 60px;
+}
+
+.icon {
+  height: 28px;
+  width: 28px;
+  border-radius: 14px;
+  background: seagreen;
+}
+
+.message {
+  background: #fff;
+  margin-bottom: 20px;
+}
+
+.message__summary {
+  display: flex;
+  cursor: pointer;
+  align-items: center;
+  width: 100%;
+}
+.message__summary .message__summary__icon {
+  padding: 10px 22px;
+}
+.message__summary .message__summary__body {
+  padding-left: 16px;
+  color: gray;
+}
+.message__summary:before {
+  bottom: 0;
+  box-shadow: 0 -1px 0 #e5e5e5, 0 0 2px rgba(0, 0, 0, 0.12), 0 2px 4px rgba(0, 0, 0, 0.24);
+  content: '';
+  display: block;
+  left: 0;
+  pointer-events: none;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+.message__details {
+  line-height: 1.5;
+  width: 100%;
+}
+.message__details .message__details__header {
+  display: flex;
+  align-items: center;
+  background: #fff;
+  cursor: pointer;
+  padding: 16px 20px;
+}
+.message__details .message__details__header:before {
+  bottom: 0;
+  box-shadow: 0 -1px 0 #e5e5e5, 0 0 2px rgba(0, 0, 0, 0.12), 0 2px 4px rgba(0, 0, 0, 0.24);
+  content: '';
+  display: block;
+  left: 0;
+  pointer-events: none;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+.message__details .message__details__header h1 {
+  line-height: 1;
+  margin: 0;
+}
+.message__details .message__details__body {
+  border-top: 1px solid #e5e5e5;
+}
+.message__details .message__details__body__icon {
+  float: left;
+  width: 40px;
+  height: 40px;
+  margin: 16px 20px;
+}
+.message__details .message__details__body__content {
+  margin: 0 20px 16px 80px;
+  padding: 0 16px 16px;
+  text-align: justify;
+}
+
+/*******************************************************************
+ * FIXED / ABSOLUTE STYLES
+ ******************************************************************/
+.message {
+  position: relative;
+}
+
+.pusher {
+  display: none;
+}
+
+.message--fixed .pusher,
+.message--absolute .pusher {
+  display: block;
+}
+
+.message--fixed .message__details__header {
+  position: fixed;
+  top: 0;
+}
+
+.message--absolute .message__details__header {
+  position: absolute;
+  bottom: 0;
+}
+
+/*******************************************************************
+ * ANIMATION STYLES
+ ******************************************************************/
+.message__details {
+  display: none;
+}
+
+.grower {
+  height: 0;
+  background: #fff;
+  will-change: height;
+  transition: height 150ms;
+}
+
+.message {
+  transition: margin 150ms;
+}
+
+.message--opening,
+.message--open {
+  margin-left: -20px;
+  margin-right: -20px;
+}
+
+.message--opening .message__details {
+  display: block;
+  position: absolute;
+  left: -50000px;
+  width: 100%;
+}
+.message--opening .message__summary {
+  animation: fade-out 150ms forwards;
+}
+.message--opening .message__summary:before {
+  display: none;
+}
+
+.message--open .message__summary {
+  display: none;
+}
+.message--open .grower {
+  display: none;
+}
+.message--open .message__details {
+  display: block;
+  position: static;
+  opacity: 0.0001;
+  animation-name: fade-in;
+  animation-duration: 150ms;
+  animation-fill-mode: forwards;
+}
+
+.message--closing .message__summary {
+  display: flex;
+  opacity: 0;
+  animation-name: fade-in;
+  animation-duration: 150ms;
+  animation-fill-mode: forwards;
+}
+.message--closing .message__summary:before {
+  display: block;
+  opacity: 0;
+  animation-name: fade-in;
+  animation-duration: 150ms;
+  animation-fill-mode: forwards;
+}
+.message--closing .grower {
+  animation: shrink 37.5ms forwards;
+}
+
+/*******************************************************************
+ * KEYFRAMES
+ ******************************************************************/
+@keyframes fade-out {
+  0%,33% {
+    opacity: 0.9999;
+  }
+  100% {
+    opacity: 0.0001;
+  }
+}
+@keyframes fade-in {
+  0%,33% {
+    opacity: 0.0001;
+  }
+  100% {
+    opacity: 0.9999;
+  }
+}
+@keyframes shrink {
+  to {
+    height: 0;
+  }
+}
